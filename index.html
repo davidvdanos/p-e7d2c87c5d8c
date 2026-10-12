@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="el">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>OrdiBee Τιμολόγηση</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F5EF;--surface:#FFFFFF;--surface2:#EFEBE0;--text:#13161C;--muted:#5B6170;
+  --gold:#A8861A;--gold2:#C9A227;--blue:#3A73AE;--green:#2F8A5E;--line:#E2DDCF;--onGold:#13161C;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#13161C;--surface:#1F2430;--surface2:#272D3B;--text:#ECE8DD;--muted:#A3A7B3;
+  --gold:#C9A227;--gold2:#E3C565;--blue:#4A86C5;--green:#3FA372;--line:#323949;--onGold:#13161C;}}
+:root[data-theme="dark"]{
+  --bg:#13161C;--surface:#1F2430;--surface2:#272D3B;--text:#ECE8DD;--muted:#A3A7B3;
+  --gold:#C9A227;--gold2:#E3C565;--blue:#4A86C5;--green:#3FA372;--line:#323949;--onGold:#13161C;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;line-height:1.5}
+.wrap{max-width:1040px;margin:0 auto;padding:32px 16px 64px}
+header{display:flex;align-items:center;gap:14px;margin-bottom:8px}
+.logo{display:flex;align-items:center;gap:10px;font-size:28px;letter-spacing:-.5px}
+.logo b{color:var(--gold);font-weight:800}
+h1{font-size:clamp(26px,4vw,38px);margin:16px 0 6px;letter-spacing:-.6px}
+h2{font-size:22px;margin:44px 0 14px;letter-spacing:-.3px}
+h2 span{color:var(--gold)}
+.lead{color:var(--muted);max-width:680px;margin:0}
+.pill{display:inline-block;padding:4px 12px;border-radius:999px;background:var(--surface2);color:var(--gold);font-weight:600;font-size:13px}
+.grid{display:grid;gap:14px}
+.g3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px}
+.card.hl{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
+.big{font-size:40px;font-weight:800;letter-spacing:-1px;color:var(--gold)}
+.big small{font-size:15px;color:var(--muted);font-weight:500}
+.card h3{margin:0 0 4px;font-size:16px}
+ul.chk{list-style:none;padding:0;margin:10px 0 0}
+ul.chk li{padding:5px 0 5px 26px;position:relative}
+ul.chk li:before{content:"";position:absolute;left:4px;top:11px;width:10px;height:10px;background:var(--green);clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%)}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line)}
+th{font-size:13px;color:var(--muted);font-weight:600}
+td.n,th.n{text-align:right}
+.tbl{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:16px}
+.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+@media(max-width:720px){.calc{grid-template-columns:1fr}}
+label{display:block;font-weight:600;margin:14px 0 6px;font-size:14px}
+.stepper{display:flex;align-items:center;gap:8px}
+.stepper button{width:40px;height:40px;border-radius:10px;border:1px solid var(--line);background:var(--surface2);color:var(--text);font-size:20px;cursor:pointer}
+.stepper output{min-width:44px;text-align:center;font-size:22px;font-weight:700}
+.seg{display:flex;background:var(--surface2);border-radius:10px;padding:4px;gap:4px}
+.seg button{flex:1;border:0;background:transparent;color:var(--text);padding:9px;border-radius:8px;font:inherit;font-weight:600;cursor:pointer}
+.seg button.on{background:var(--gold);color:var(--onGold)}
+.row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed var(--line)}
+.row:last-child{border:0}
+.total{font-size:30px;font-weight:800;color:var(--gold)}
+.note{color:var(--muted);font-size:13px}
+.q{font-weight:700;margin:0}
+.a{margin:4px 0 0;color:var(--muted)}
+.steps{counter-reset:s}
+.steps .card{position:relative;padding-left:62px}
+.steps .card:before{counter-increment:s;content:counter(s);position:absolute;left:18px;top:18px;width:30px;height:30px;border-radius:8px;background:var(--gold);color:var(--onGold);font-weight:800;display:grid;place-items:center}
+.tag{font-size:12px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.06em}
+.it{border-color:var(--blue);background:linear-gradient(180deg,color-mix(in srgb,var(--blue) 10%,var(--surface)),var(--surface))}
+.it .big{color:var(--blue)}
+.itbadge{display:inline-block;padding:4px 12px;border-radius:999px;background:var(--blue);color:#fff;font-weight:700;font-size:12px;letter-spacing:.05em;text-transform:uppercase}
+.itbox{border:2px dashed var(--blue);border-radius:20px;padding:20px;margin-top:6px}
+.seg.blue button.on{background:var(--blue);color:#fff}
+.rowit b{color:var(--blue)}
+h3.sub{margin:18px 0 4px;font-size:14px;color:var(--blue);text-transform:uppercase;letter-spacing:.06em}
+.themebtn{margin-left:auto;border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:10px;padding:7px 12px;cursor:pointer;font:inherit;font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="logo">
+    <svg width="40" height="34" viewBox="0 0 40 34" aria-hidden="true">
+      <polygon points="10,1 18,5.5 18,14.5 10,19 2,14.5 2,5.5" fill="#C9A227"/>
+      <polygon points="28,1 36,5.5 36,14.5 28,19 20,14.5 20,5.5" fill="#4A86C5"/>
+      <polygon points="19,15 27,19.5 27,28.5 19,33 11,28.5 11,19.5" fill="none" stroke="currentColor" stroke-width="2"/>
+    </svg>
+    <span>ordi<b>bee</b></span>
+  </div>
+  <button class="themebtn" id="tb">Θέμα</button>
+</header>
+
+<span class="pill">Οδηγός τιμολόγησης για πωλητές · Τιμές χωρίς ΦΠΑ</span>
+<h1>Ένα πακέτο, όλα μέσα.</h1>
+<p class="lead">Το OrdiBee <b>νοικιάζεται, δεν αγοράζεται</b>. Τρέχει στους δικούς μας servers. Ο πελάτης δεν χρειάζεται εξοπλισμό, αναβαθμίσεις ή τεχνικό. Πληρώνει ένα σταθερό ποσό τον μήνα.</p>
+
+<h2><span>01</span> Ο τιμοκατάλογος</h2>
+<div class="grid g3">
+  <div class="card hl">
+    <span class="tag">Δωρεάν δοκιμή</span>
+    <div class="big">15 <small>ημέρες</small></div>
+    <p class="note">Χωρίς χρέωση, χωρίς δέσμευση. Η εγκατάσταση πληρώνεται μόνο αν ο πελάτης συνεχίσει.</p>
+  </div>
+  <div class="card">
+    <span class="tag">Εγκατάσταση · εφάπαξ</span>
+    <div class="big">€100 <small>1ο φαρμακείο</small></div>
+    <p class="note"><b>€50</b> για κάθε επόμενο. Στήσιμο, χρήστες και 1 ώρα εκπαίδευση από απόσταση.</p>
+  </div>
+  <div class="card">
+    <span class="tag">Μηνιαίο πακέτο</span>
+    <div class="big">€50 <small>/ μήνα</small></div>
+    <p class="note">2ο φαρμακείο <b>€40</b> (−20%) · 3ο και μετά <b>€35</b> το καθένα (−30%).</p>
+  </div>
+</div>
+
+<div class="card" style="margin-top:14px">
+  <h3>Τι περιλαμβάνει το μηνιαίο πακέτο</h3>
+  <div class="grid g3">
+    <ul class="chk">
+      <li>Έως 3 χρήστες ανά φαρμακείο</li>
+      <li>Επιπλέον χρήστης €5/μήνα</li>
+    </ul>
+    <ul class="chk">
+      <li>Φιλοξενία και καθημερινά αντίγραφα ασφαλείας</li>
+      <li>Ενημερώσεις και νέες λειτουργίες</li>
+    </ul>
+    <ul class="chk">
+      <li>Υποστήριξη με email και τηλέφωνο</li>
+      <li>2 ώρες/μήνα βοήθεια από απόσταση (μετά €30/ώρα)</li>
+    </ul>
+  </div>
+  <p class="note" style="margin:12px 0 0"><b>Ετήσια πληρωμή:</b> 1 μήνας δώρο (12 μήνες στην τιμή των 11).</p>
+</div>
+
+<h2><span>02</span> Πρόσθετη υπηρεσία: OrdiBee IT Care</h2>
+<div class="itbox">
+  <span class="itbadge">Ξεχωριστή υπηρεσία · προαιρετική</span>
+  <p class="lead" style="margin-top:10px">Τεχνική υποστήριξη για όλο το φαρμακείο: υπολογιστές, POS, server, εκτυπωτές, δίκτυο. Δεν είναι μέρος του πακέτου OrdiBee και αγοράζεται χωριστά, ανά φαρμακείο. Με OrdiBee έχει <b>−10%</b>.</p>
+  <div class="grid g3" style="margin-top:14px">
+    <div class="card it">
+      <span class="tag">IT Βασικό</span>
+      <div class="big">€49 <small>/ φαρμακείο / μήνα</small></div>
+      <ul class="chk">
+        <li>Έως 5 συσκευές</li>
+        <li>Παρακολούθηση 24/7 και ειδοποίηση πριν «πέσει» κάτι</li>
+        <li>Ενημερώσεις Windows και ασφάλειας</li>
+        <li>Υποστήριξη από απόσταση έως 3 ώρες/μήνα</li>
+        <li>Απάντηση την ίδια εργάσιμη</li>
+      </ul>
+    </div>
+    <div class="card it">
+      <span class="tag">IT Plus</span>
+      <div class="big">€89 <small>/ φαρμακείο / μήνα</small></div>
+      <ul class="chk">
+        <li>Έως 8 συσκευές</li>
+        <li>Ό,τι έχει το Βασικό</li>
+        <li>Υποστήριξη από απόσταση χωρίς όριο (λογική χρήση)</li>
+        <li>Απάντηση σε 4 ώρες</li>
+        <li>Έλεγχος αντιγράφων ασφαλείας</li>
+      </ul>
+    </div>
+    <div class="card it">
+      <span class="tag">Λοιπές χρεώσεις</span>
+      <ul class="chk">
+        <li>Αρχική καταγραφή και εγκατάσταση: <b>€80</b> / φαρμακείο, εφάπαξ</li>
+        <li>Επιπλέον συσκευή: <b>€8</b>/μήνα</li>
+        <li>Χωρίς συμβόλαιο: €35/ώρα από απόσταση</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card it" style="margin-top:14px">
+    <span class="tag">Πρώτα από απόσταση</span>
+    <p style="margin:6px 0 0">Σχεδόν όλα λύνονται από απόσταση, σε λίγα λεπτά, χωρίς να περιμένει κανείς τεχνικό. Αν κάτι <b>πραγματικά</b> χρειάζεται επίσκεψη, ερχόμαστε <b>χωρίς επιπλέον χρέωση</b>, μόνο σε φαρμακεία στην <b>Αττική</b>.</p>
+  </div>
+  <h3 class="sub">Δεν περιλαμβάνονται</h3>
+  <p class="note" style="margin:0">Αγορά εξοπλισμού και αδειών λογισμικού (τα προμηθεύουμε χωριστά) · antivirus · τα τερματικά καρτών, που ανήκουν στην τράπεζα (καλύπτουμε μόνο τη σύνδεσή τους στο δίκτυο) · προβλήματα του προγράμματος του φαρμακείου και της σύνδεσης με ΗΔΙΚΑ/ΕΟΠΥΥ (μιλάμε εμείς με την εταιρεία του προγράμματος για λογαριασμό του πελάτη) · επισκέψεις εκτός Αττικής.</p>
+</div>
+
+<h2><span>03</span> Υπολογιστής προσφοράς</h2>
+<div class="calc">
+  <div class="card">
+    <label>Φαρμακεία</label>
+    <div class="stepper"><button data-t="ph" data-d="-1" aria-label="λιγότερα">−</button><output id="ph">1</output><button data-t="ph" data-d="1" aria-label="περισσότερα">+</button></div>
+    <label>Συνολικοί χρήστες</label>
+    <div class="stepper"><button data-t="us" data-d="-1" aria-label="λιγότεροι">−</button><output id="us">3</output><button data-t="us" data-d="1" aria-label="περισσότεροι">+</button></div>
+    <p class="note" id="usnote"></p>
+    <label>Τρόπος πληρωμής</label>
+    <div class="seg"><button id="bm" class="on">Μηνιαία</button><button id="by">Ετήσια</button></div>
+    <p class="note">Το 1 μήνας δώρο της ετήσιας ισχύει μόνο για το OrdiBee.</p>
+    <h3 class="sub">IT Care (προαιρετικό)</h3>
+    <div class="seg blue"><button id="i0" class="on">Χωρίς</button><button id="i1">IT Βασικό</button><button id="i2">IT Plus</button></div>
+    <label>Συσκευές σε όλα τα φαρμακεία</label>
+    <div class="stepper"><button data-t="dv" data-d="-1" aria-label="λιγότερες">−</button><output id="dv">4</output><button data-t="dv" data-d="1" aria-label="περισσότερες">+</button></div>
+    <p class="note" id="dvnote"></p>
+  </div>
+  <div class="card hl">
+    <div class="row"><span>Εγκατάσταση (εφάπαξ, μετά τη δοκιμή)</span><b id="rSetup"></b></div>
+    <div class="row"><span>Πακέτο φαρμακείων / μήνα</span><b id="rPh"></b></div>
+    <div class="row"><span>Επιπλέον χρήστες / μήνα</span><b id="rUs"></b></div>
+    <div class="row rowit"><span>IT Care εγκατάσταση (εφάπαξ)</span><b id="rItSetup"></b></div>
+    <div class="row rowit"><span id="rItL">IT Care / μήνα</span><b id="rIt"></b></div>
+    <div class="row"><span>Σύνολο / μήνα</span><b id="rMo"></b></div>
+    <div class="row"><span id="rBillL"></span><b id="rBill"></b></div>
+    <p class="note" style="margin:16px 0 2px">Κόστος 1ου χρόνου</p>
+    <div class="total" id="rYear"></div>
+    <p class="note" id="rSave"></p>
+  </div>
+</div>
+
+<h2><span>04</span> Έτοιμα σενάρια</h2>
+<div class="tbl"><table>
+<thead><tr><th>Πελάτης</th><th class="n">Εγκατάσταση</th><th class="n">Μήνας</th><th class="n">1ος χρόνος (μηνιαία)</th><th class="n">1ος χρόνος (ετήσια)</th></tr></thead>
+<tbody>
+<tr><td>1 φαρμακείο, 3 χρήστες</td><td class="n">€100</td><td class="n">€50</td><td class="n">€700</td><td class="n">€650</td></tr>
+<tr><td>1 φαρμακείο, 5 χρήστες</td><td class="n">€100</td><td class="n">€60</td><td class="n">€820</td><td class="n">€760</td></tr>
+<tr><td>2 φαρμακεία, 6 χρήστες</td><td class="n">€150</td><td class="n">€90</td><td class="n">€1.230</td><td class="n">€1.140</td></tr>
+<tr><td>3 φαρμακεία, 9 χρήστες</td><td class="n">€200</td><td class="n">€125</td><td class="n">€1.700</td><td class="n">€1.575</td></tr>
+<tr><td>4 φαρμακεία, 14 χρήστες</td><td class="n">€250</td><td class="n">€170</td><td class="n">€2.290</td><td class="n">€2.120</td></tr>
+<tr><td>6 φαρμακεία, 18 χρήστες</td><td class="n">€350</td><td class="n">€230</td><td class="n">€3.110</td><td class="n">€2.880</td></tr>
+</tbody></table></div>
+<p class="note">Η «ετήσια» στήλη: εγκατάσταση + 11 μήνες (1 μήνας δώρο).</p>
+
+<h3 class="sub" style="margin-top:22px">Σενάρια με IT Care (−10% λόγω OrdiBee, μηνιαία πληρωμή)</h3>
+<div class="tbl" style="border-color:var(--blue)"><table>
+<thead><tr><th>Πελάτης</th><th class="n">Εγκατάσταση</th><th class="n">OrdiBee/μήνα</th><th class="n">IT Care/μήνα</th><th class="n">Σύνολο/μήνα</th><th class="n">1ος χρόνος</th></tr></thead>
+<tbody>
+<tr><td>1 φαρμακείο, 4 συσκευές, IT Βασικό</td><td class="n">€180</td><td class="n">€50</td><td class="n">€44,10</td><td class="n">€94,10</td><td class="n">€1.309,20</td></tr>
+<tr><td>1 φαρμακείο, 6 συσκευές, IT Plus</td><td class="n">€180</td><td class="n">€50</td><td class="n">€80,10</td><td class="n">€130,10</td><td class="n">€1.741,20</td></tr>
+<tr><td>2 φαρμακεία, 10 συσκευές, IT Βασικό</td><td class="n">€310</td><td class="n">€90</td><td class="n">€88,20</td><td class="n">€178,20</td><td class="n">€2.448,40</td></tr>
+<tr><td>4 φαρμακεία, 14 χρήστες, 20 συσκευές, IT Βασικό</td><td class="n">€570</td><td class="n">€170</td><td class="n">€176,40</td><td class="n">€346,40</td><td class="n">€4.726,80</td></tr>
+</tbody></table></div>
+
+<h2><span>05</span> Η πορεία μιας πώλησης</h2>
+<div class="grid g3 steps">
+  <div class="card"><h3>Επίδειξη</h3><p class="note">15 λεπτά: νέα παραγγελία, αναζήτηση πελάτη με τηλέφωνο, ειδοποίηση πελάτη, αρχείο.</p></div>
+  <div class="card"><h3>Δοκιμή 15 ημερών</h3><p class="note">Στήνουμε τον λογαριασμό την ίδια μέρα. Κάνουμε τηλέφωνο την 3η και τη 10η μέρα.</p></div>
+  <div class="card"><h3>Κλείσιμο</h3><p class="note">Πριν λήξει η δοκιμή: προσφορά με μηνιαία ή ετήσια πληρωμή. Τα δεδομένα της δοκιμής μένουν.</p></div>
+</div>
+
+<h2><span>06</span> Τι απαντάμε</h2>
+<div class="grid g3">
+  <div class="card"><p class="q">«Είναι ακριβό.»</p><p class="a">€50 τον μήνα είναι λιγότερο από €1,70 τη μέρα. Μία παραγγελία που δεν χάνεται τα βγάζει.</p></div>
+  <div class="card"><p class="q">«Μπορώ να το αγοράσω μία φορά;»</p><p class="a">Όχι. Είναι υπηρεσία: φιλοξενία, αντίγραφα, ενημερώσεις και υποστήριξη είναι μέσα στο ίδιο ποσό.</p></div>
+  <div class="card"><p class="q">«Θέλω να τρέχει στον δικό μου server.»</p><p class="a">Δεν το προσφέρουμε. Έτσι δεν χρειάζεστε εξοπλισμό ούτε τεχνικό, και έχετε πάντα την τελευταία έκδοση.</p></div>
+  <div class="card"><p class="q">«Κι αν σταματήσω;»</p><p class="a">Δεν υπάρχει δέσμευση στη μηνιαία πληρωμή. Σταματάτε όποτε θέλετε.</p></div>
+  <div class="card"><p class="q">«Χρειάζομαι περισσότερους χρήστες.»</p><p class="a">Κάθε φαρμακείο έχει 3 χρήστες. Κάθε επιπλέον κοστίζει €5 τον μήνα.</p></div>
+  <div class="card"><p class="q">«Έχω πολλά φαρμακεία.»</p><p class="a">Από το 2ο φαρμακείο −20%, από το 3ο −30%. Και η εγκατάσταση πέφτει στα €50.</p></div>
+  <div class="card it"><p class="q">«Έχω ήδη τεχνικό.»</p><p class="a">Εμείς βλέπουμε το πρόβλημα πριν το καταλάβετε, χωρίς να έρθει κανείς. Και ξέρουμε ήδη πώς είναι στημένο το φαρμακείο σας.</p></div>
+  <div class="card it"><p class="q">«Μου φτιάχνετε και το τερματικό καρτών;»</p><p class="a">Το τερματικό ανήκει στην τράπεζα. Εμείς φροντίζουμε να είναι σωστά συνδεδεμένο στο δίκτυο.</p></div>
+</div>
+
+<h2><span>07</span> Κανόνες για τον πωλητή</h2>
+<div class="card">
+  <ul class="chk">
+    <li>Δεν δίνουμε έκπτωση πέρα από τον τιμοκατάλογο και τον 1 μήνα δώρο της ετήσιας.</li>
+    <li>Δεν υποσχόμαστε λειτουργίες που δεν υπάρχουν ακόμα.</li>
+    <li>Οι 2 ώρες βοήθειας είναι ανά εταιρεία τον μήνα και δεν μεταφέρονται.</li>
+    <li>Αν η δοκιμή δεν γίνει πελάτης, ο λογαριασμός κλείνει και τα δεδομένα διαγράφονται μετά από 30 ημέρες.</li>
+    <li>Στο IT Care δεν υποσχόμαστε επισκέψεις. Επίσκεψη γίνεται μόνο όταν είναι απολύτως απαραίτητη, μόνο στην Αττική, χωρίς χρέωση.</li>
+    <li>Το IT Care πουλιέται πάντα ως ξεχωριστή υπηρεσία. Δεν λέμε ποτέ ότι είναι μέσα στο OrdiBee.</li>
+    <li>Όλες οι τιμές είναι χωρίς ΦΠΑ.</li>
+  </ul>
+</div>
+</div>
+
+<script>
+const s={ph:1,us:3,yearly:false,it:0,dv:4};
+const eur=n=>"€"+(Math.round(n*100)/100).toLocaleString("el-GR",{minimumFractionDigits:Number.isInteger(Math.round(n*100)/100)?0:2,maximumFractionDigits:2});
+const IT=[null,{p:49,inc:5,n:"IT Βασικό"},{p:89,inc:8,n:"IT Plus"}];
+function phMonthly(n){let t=0;for(let i=1;i<=n;i++)t+=i===1?50:i===2?40:35;return t}
+function render(){
+  if(s.us<1)s.us=1;
+  document.getElementById("ph").textContent=s.ph;
+  document.getElementById("us").textContent=s.us;
+  const incl=s.ph*3, extra=Math.max(0,s.us-incl);
+  document.getElementById("usnote").textContent=`Περιλαμβάνονται ${incl} χρήστες. Επιπλέον: ${extra}.`;
+  if(s.dv<1)s.dv=1;
+  const setup=100+50*(s.ph-1), pm=phMonthly(s.ph), um=extra*5, mo=pm+um;
+  const p=IT[s.it];
+  let itM=0,itS=0;
+  document.getElementById("dv").textContent=s.dv;
+  if(p){const inc=p.inc*s.ph, ex=Math.max(0,s.dv-inc);itM=(p.p*s.ph+ex*8)*0.9;itS=80*s.ph;
+    document.getElementById("dvnote").textContent=`Περιλαμβάνονται ${inc} συσκευές. Επιπλέον: ${ex} × €8. Τιμή με −10% λόγω OrdiBee.`;}
+  else document.getElementById("dvnote").textContent="Επίλεξε πακέτο IT Care για να μετρήσουν οι συσκευές.";
+  const tot=mo+itM, ob=s.yearly?mo*11:mo*12, itY=itM*12;
+  document.getElementById("rSetup").textContent=eur(setup);
+  document.getElementById("rPh").textContent=eur(pm);
+  document.getElementById("rUs").textContent=eur(um);
+  document.getElementById("rItSetup").textContent=p?eur(itS):"—";
+  document.getElementById("rItL").textContent=p?`${p.n} / μήνα`:"IT Care / μήνα";
+  document.getElementById("rIt").textContent=p?eur(itM):"—";
+  document.getElementById("rMo").textContent=eur(tot);
+  document.getElementById("rBillL").textContent=s.yearly?"OrdiBee ετήσια (11 μήνες)":"OrdiBee, 12 μηνιαίες";
+  document.getElementById("rBill").textContent=eur(ob);
+  document.getElementById("rYear").textContent=eur(setup+itS+ob+itY);
+  document.getElementById("rSave").textContent=s.yearly?`Κέρδος από την ετήσια: ${eur(mo)}`:`Με ετήσια πληρωμή του OrdiBee θα γλίτωνε ${eur(mo)}.`;
+  document.getElementById("bm").classList.toggle("on",!s.yearly);
+  document.getElementById("by").classList.toggle("on",s.yearly);
+  [0,1,2].forEach(i=>document.getElementById("i"+i).classList.toggle("on",s.it===i));
+}
+document.querySelectorAll(".stepper button").forEach(b=>b.onclick=()=>{
+  const k=b.dataset.t,d=+b.dataset.d;
+  if(k==="ph"){const old=s.ph;s.ph=Math.min(50,Math.max(1,s.ph+d));if(s.us===old*3)s.us=s.ph*3;}
+  else if(k==="dv")s.dv+=d;
+  else s.us+=d;
+  render();});
+[0,1,2].forEach(i=>document.getElementById("i"+i).onclick=()=>{s.it=i;render()});
+document.getElementById("bm").onclick=()=>{s.yearly=false;render()};
+document.getElementById("by").onclick=()=>{s.yearly=true;render()};
+document.getElementById("tb").onclick=()=>{const r=document.documentElement;const dark=r.dataset.theme?r.dataset.theme==="dark":matchMedia("(prefers-color-scheme: dark)").matches;r.dataset.theme=dark?"light":"dark";};
+render();
+</script>
+</body>
+</html>
